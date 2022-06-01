@@ -1,0 +1,12 @@
+{% extends 'orders/base.html' %}
+
+{% block content %}
+    {% for object in object_list %}
+        <p>
+            <a href="{% url 'orders:orders_detail' object.id %}">{{ object }}</a>
+        </p>
+    {% endfor %}
+    <p>
+        <a href="{% url 'orders:orders_form' %}"> + Add new</a>
+    </p>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'orders/base.html' %}
+{% load static %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data" id="orderForm">
+        {% csrf_token %}
+        {{ form.non_form_errors }}
+        {{ form.as_p }}
+        <h4>Товары:</h4>
+        {{ order_items_formset.non_form_errors }}
+        {{ order_items_formset.management_form }}
+        <table style="text-align: center">
+            <tbody>
+            <tr>
+                <th>
+                    Товар
+                </th>
+                <th>
+                    Тип товара
+                </th>
+                <th></th>
+            </tr>
+            <tr class="product-row">
+                {% for form in order_items_formset %}
+                    <td class="productObject" style="min-width: 100px;">
+                        {{ form.product }}
+                    </td>
+                    <td class="productType" style="min-width: 100px;"></td>
+                    <td></td>
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+        <p>
+            <button type="submit">Submit</button>
+        </p>
+        <br/>
+        <p>
+            <a href="{% url 'orders:orders_list' %}"><--- To list</a>
+        </p>
+    </form>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.formset.js' %}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#orderForm tbody tr').formset(
+                {'prefix': '{{ order_items_formset.prefix }}'}
+            );
+        })
+
+        $('table tr').on('input', 'select', function () {
+            var target = event.target;
+            var productId = target.value;
+            var parentTr = target.parentNode.parentNode;
+            var productTypeCell = parentTr.querySelector('.productType');
+
+            if (productId) {
+                $.ajax({
+                    url: '/orders/product_type/' + productId + "/",
+                    method: 'get',
+                    success: function (data) {
+                        if (data.product_type_name) {
+                            productTypeCell.innerHTML = data.product_type_name;
+                        } else {
+                            productTypeCell.innerHTML = '';
+                        }
+                    },
+                });
+            } else {
+                productTypeCell.innerHTML = '';
+            }
+        });
+    </script>
+{% endblock %}

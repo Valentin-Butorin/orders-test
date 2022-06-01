@@ -1,0 +1,45 @@
+{% extends 'orders/base.html' %}
+
+{% block content %}
+    <p>
+        Пункт выдачи: {{ object.delivery_office }}
+    </p>
+    <p>
+        Дата доставки: {{ object.delivery_date }}
+    </p>
+    <p>
+        Файл: {{ object.file }}
+    </p>
+    <p>
+    <h4>Товары:</h4>
+    <table style="text-align: center">
+        <tbody>
+            <tr>
+                <th>#</th>
+                <th>
+                    Товар
+                </th>
+                <th>
+                    Тип товара
+                </th>
+            </tr>
+            {% for item in object.order_items.all %}
+                <tr>
+                    <td>
+                        {{ forloop.counter }}
+                    </td>
+                    <td style="min-width: 100px;">
+                        {{ item.product }}
+                    </td>
+                    <td style="min-width: 100px;">
+                        {{ item.product.product_type }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </p>
+    <p>
+        <a href="{% url 'orders:orders_list' %}"><--- To list</a>
+    </p>
+{% endblock %}
