@@ -6,7 +6,7 @@ from .models.order_item import OrderItem
 
 class OrderForm(forms.ModelForm):
     """
-    Форма для ввода информации о доставке
+    Форма для ввода информации о заказе
     """
 
     class Meta:
@@ -23,7 +23,7 @@ class OrderForm(forms.ModelForm):
 
 class OrderItemForm(forms.ModelForm):
     """
-    Форма для ввода адреса пункта выдачи
+    Форма для ввода позиции заказа
     """
 
     class Meta:
