@@ -17,9 +17,8 @@ class OrderForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         delivery_date_field = self.fields['delivery_date']
-        if delivery_date_field:
-            delivery_date_field.widget.input_type = 'date'
-            delivery_date_field.widget.attrs['value'] = date.today
+        delivery_date_field.widget.input_type = 'date'
+        delivery_date_field.widget.attrs['value'] = date.today
 
 
 class OrderItemForm(forms.ModelForm):

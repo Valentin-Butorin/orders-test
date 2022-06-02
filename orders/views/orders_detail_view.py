@@ -4,7 +4,7 @@ from orders.models.order import Order
 
 class OrdersDetailView(DetailView):
     """
-    Выводит подробную информацию о доставке
+    Выводит подробную информацию о заказе
     """
 
     model = Order

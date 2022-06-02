@@ -4,7 +4,7 @@ from django.urls import reverse
 
 class OrdersRedirectView(RedirectView):
     """
-    Перенаправляет на список моделей Delivery
+    Перенаправляет на список заказов
     """
     permanent = False
     query_string = False

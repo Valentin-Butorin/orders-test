@@ -4,7 +4,7 @@ from orders.models.order import Order
 
 class OrdersListView(ListView):
     """
-    Выводит список объектов модели Delivery
+    Выводит список заказов
     """
 
     model = Order

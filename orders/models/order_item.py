@@ -4,6 +4,10 @@ from .order import Order
 
 
 class OrderItem(models.Model):
+    """
+    Класс для описания позиции в заказе
+    """
+
     order = models.ForeignKey(
         Order,
         on_delete=models.CASCADE,
